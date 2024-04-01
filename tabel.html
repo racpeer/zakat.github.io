@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Aplikasi Zakat MD</title>
+    
+	<link href="https://cdn.datatables.net/2.0.3/css/dataTables.bootstrap5.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+	
+	<script defer src="https://code.jquery.com/jquery-3.7.1.js"></script>
+	<script defer src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+	<script defer src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
+	<script defer src="https://cdn.datatables.net/2.0.3/js/dataTables.bootstrap5.js"></script>
+	
+	<script defer src="script.js"></script>
+  </head>
+  <body>
+  
+  <div class="container text-center mb-3">
+		<table id="example" class="table table-striped" style="width:100%">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Tanggal</th>
+					<th>Nama</th>
+					<th>Alamat</th>
+					<th>No. Telp</th>
+					<th>Jenis</th>
+					<th>Kg</th>
+					<th>Rupiah</th>
+					<th>Petugas</th>
+					<th>Tempat</th>
+					<th>Aksi</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php 
+					include "koneksi.php";
+					
+					$tempat = $_SESSION['username'];
+					
+					$query_mysql = mysqli_query($conn,"SELECT * FROM zakat where tempat='$tempat'")or die(mysql_error());
+					
+					while($data = mysqli_fetch_array($query_mysql)){
+					?>
+					<tr>
+						<td><?php echo $data['id'];?></td>
+						<td><?php echo $data['tanggal']; ?></td>
+						<td><?php echo $data['nama']; ?></td>
+						<td><?php echo $data['alamat']; ?></td>
+						<td><?php echo $data['telp'];?></td>
+						<td><?php echo $data['jenis']; ?></td>
+						<td><?php echo $data['kg']; ?></td>
+						<td><?php echo $data['rupiah']; ?></td>
+						<td><?php echo $data['petugas']; ?></td>
+						<td><?php echo $data['tempat']; ?></td>
+						
+						<td>
+						
+						<a class="hapus" href="hapus.php?id=<?php echo $data['id']; ?>">Hapus</a>				
+						</td>
+					</tr>
+				<?php } ?>
+			</tbody>		   
+		</table>
+	</div>
+	</body>	
+</html>
